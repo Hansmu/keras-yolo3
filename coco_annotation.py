@@ -35,7 +35,7 @@ for ant in annotations:
 
     name_box_id[name].append([ant['bbox'], cat])
 
-f = open('train.txt', 'w')
+f = open('/content/drive/My\ Drive/Colab\ Notebooks/train.txt', 'w')
 for key in name_box_id.keys():
     f.write(key)
     box_infos = name_box_id[key]
