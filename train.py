@@ -14,6 +14,9 @@ from yolo3.utils import get_random_data
 
 
 def _main():
+    last_layer_train_epochs = 10
+    full_model_train_epochs = 10
+
     annotation_path = '/content/drive/My Drive/Colab Notebooks/train.txt'
     log_dir = '/content/drive/My Drive/Colab Notebooks/logs/'
     classes_path = 'model_data/voc_classes.txt'
@@ -60,7 +63,7 @@ def _main():
                 steps_per_epoch=max(1, num_train//batch_size),
                 validation_data=data_generator_wrapper(lines[num_train:], batch_size, input_shape, anchors, num_classes),
                 validation_steps=max(1, num_val//batch_size),
-                epochs=50,
+                epochs=last_layer_train_epochs,
                 initial_epoch=0,
                 callbacks=[logging, checkpoint])
         model.save_weights(log_dir + 'trained_weights_stage_1.h5')
@@ -79,8 +82,8 @@ def _main():
             steps_per_epoch=max(1, num_train//batch_size),
             validation_data=data_generator_wrapper(lines[num_train:], batch_size, input_shape, anchors, num_classes),
             validation_steps=max(1, num_val//batch_size),
-            epochs=100,
-            initial_epoch=50,
+            epochs=last_layer_train_epochs + full_model_train_epochs,
+            initial_epoch=last_layer_train_epochs,
             callbacks=[logging, checkpoint, reduce_lr, early_stopping])
         model.save_weights(log_dir + 'trained_weights_final.h5')
 
