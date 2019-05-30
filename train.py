@@ -14,8 +14,8 @@ from yolo3.utils import get_random_data
 
 
 def _main():
-    last_layer_train_epochs = 10
-    full_model_train_epochs = 30
+    last_layer_train_epochs = 25
+    full_model_train_epochs = 75
 
     annotation_path = '/content/drive/My Drive/Colab Notebooks/train.txt'
     log_dir = '/content/drive/My Drive/Colab Notebooks/logs/'
